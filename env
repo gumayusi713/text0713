@@ -1,0 +1,6 @@
+
+export BKPAAS_APP_ID=text0713
+export BKPAAS_APP_SECRET=g38gp7L8fQZ3k3miprIrWrSRPWpMif6LVJXI
+export BKPAAS_URL=https://bkpaas.dev-x86.cwbk5.com/developer-center/apps/text
+export BKPAAS_ENV=dev
+export BKPAAS_ENGINE_REGION=default
