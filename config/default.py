@@ -131,7 +131,7 @@ LANGUAGES = (
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "text",  # noqa
+        "NAME": "text0713",  # noqa
         "USER": "root",
         "PASSWORD": "root",
         "HOST": "localhost",
