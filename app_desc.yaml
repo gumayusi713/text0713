@@ -1,8 +1,63 @@
-spec_version: 2
-module:
+specVersion: 3
+appVersion: 3.0.0
+app:
+  region: default
+  bkAppCode: python3_vue_saas1
+  bkAppName: text
+  market:
+    category: 企业IT
+    introduction: 嘉为蓝鲸开发框架V3
+    description: 嘉为蓝鲸开发框架V3，基于 python3 开发，内置 vue 组件
+    displayOptions:
+      height: 720
+      isMax: true
+      width: 1280
+modules:
+- name: default
+  isDefault: true
   language: Python
-  scripts:
-    pre_release_hook: "python manage.py migrate --no-input"
-  processes:
-    web:
-      command: gunicorn wsgi -w 4 -b :$PORT --access-logfile - --error-logfile - --access-logformat '[%(h)s] %({request_id}i)s %(u)s %(t)s "%(r)s" %(s)s %(D)s %(b)s "%(f)s" "%(a)s"'
+  sourceDir: ./src
+  spec:
+    addons:
+    - name: mysql
+    configuration:
+      env:
+      - name: GUNICORN_WORKER_NUM
+        value: 1
+        description: GunicornWorker数量
+      - name: GUNICORN_THREAD_NUM
+        value: 10
+        description: GunicornThread数量
+    hooks:
+      preRelease:
+        procCommand: bash bin/pre_release_hook.sh
+    processes:
+    - name: web
+      procCommand: bin/start_web.sh
+      resQuotaPlan: 4C4G
+      replicas: 2
+      services:
+      - name: web
+        targetPort: 5000
+        protocol: TCP
+        port: 80
+        exposedType:
+          name: bk/http
+    - name: beat
+      procCommand: bin/start_beat.sh
+      resQuotaPlan: 4C4G
+      replicas: 1
+      services:
+      - name: beat
+        targetPort: 5000
+        protocol: TCP
+        port: 80
+    - name: dworker
+      procCommand: bin/start_worker.sh
+      resQuotaPlan: 4C4G
+      replicas: 2
+      services:
+      - name: dworker
+        targetPort: 5000
+        protocol: TCP
+        port: 80
