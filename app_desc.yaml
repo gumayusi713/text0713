@@ -3,7 +3,7 @@ appVersion: 3.0.0
 app:
   region: default
   bkAppCode: python3_vue_saas1
-  bkAppName: text
+  bkAppName: text0713
   market:
     category: 企业IT
     introduction: 嘉为蓝鲸开发框架V3
